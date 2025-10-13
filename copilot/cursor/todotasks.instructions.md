@@ -1,50 +1,49 @@
 ---
-globs: **/todo.md
-alwaysApply: false
+applyTo: **/todo.md
 ---
-## Task Organization
+# Task Management Standards
 
+## Task Organization
 ### Task States
-- `[ ]` pending
-- `[x]` completed
+- `[ ]` pending, `[x]` completed, `[~]` in progress, `[!]` blocked
 
 ### Task Description Format
 - Use action verb + object + detail
 - Specify return type for methods
 - Specify expected behavior for operations
+- Include acceptance criteria
 
 ### Task Scope
 - Each task must be completable in single development session
 - Include all required implementation details
 - Specify all dependencies and prerequisites
+- Break down complex tasks into smaller, manageable units
 
 ### Design Compliance
 - TODO documents must only contain implementation tasks for existing design
 - No new design content allowed in TODO files
-- All tasks must reference only APIs explicitly defined in design documents
+- All tasks must reference only interfaces explicitly defined in design documents
 - No speculation or creation of new interfaces in TODO content
 
-
----
-
 ## Code Quality Requirements
+### Pre-Implementation Checks
+1. Review existing code structure and patterns
+2. Identify potential refactoring opportunities
+3. Plan for maintainable and testable code
 
 ### Post-Implementation Checks
-1. Run pylint on modified files
-2. Run black formatter on modified files
-3. Run isort import sorter on modified files
-4. Fix all errors and warnings above threshold
+1. Run code quality tools on modified files
+2. Apply code formatting tools
+3. Fix all errors and warnings above threshold
+4. Ensure consistent coding style
 
 ### Quality Gates
-- Pylint score ≥ 9.5 for all modified files
-- Black formatting applied to all modified files
-- Import sorting applied to all modified files
+- Code quality score ≥ 9.0 for all modified files
+- Consistent formatting applied to all modified files
 - No linting errors remain
-
----
+- All tests pass
 
 ## Testing Requirements
-
 ### Unit Test Coverage
 - Create at least one unit test for each public method
 - Create at least one unit test for each public function
@@ -59,10 +58,7 @@ alwaysApply: false
 - Use fixtures for common test data
 - Mock external dependencies
 
----
-
 ## File Organization
-
 ### TODO File Structure
 - One file per development phase
 - Sequential numbering: 1.todo.md, 2.todo.md, etc.
@@ -73,18 +69,49 @@ alwaysApply: false
 - List prerequisite tasks explicitly
 - Specify execution order when required
 - Mark blocking dependencies clearly
-
----
+- Use dependency graphs for complex relationships
 
 ## Status Management
-
 ### Progress Tracking
 - Update task status immediately after completion
 - Mark dependent tasks when prerequisites complete
 - Use clear status indicators only
+- Document completion criteria
 
 ### Completion Criteria
 - All tasks marked as completed
 - All code passes quality gates
 - All tests pass
 - No blocking dependencies remain
+- Documentation updated if needed
+
+## Task Templates
+### Feature Implementation Task
+```
+[ ] Implement [FeatureName]
+  - [ ] Create [ComponentName] class
+  - [ ] Add [MethodName] method
+  - [ ] Write unit tests
+  - [ ] Update documentation
+  - [ ] Integration testing
+```
+
+### Bug Fix Task
+```
+[ ] Fix [BugDescription]
+  - [ ] Reproduce the issue
+  - [ ] Identify root cause
+  - [ ] Implement fix
+  - [ ] Add regression test
+  - [ ] Verify fix works
+```
+
+### Refactoring Task
+```
+[ ] Refactor [ComponentName]
+  - [ ] Analyze current implementation
+  - [ ] Design improved structure
+  - [ ] Implement changes incrementally
+  - [ ] Update tests
+  - [ ] Verify functionality preserved
+```
