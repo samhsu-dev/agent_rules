@@ -3,115 +3,122 @@ applyTo: **/todo.md
 ---
 # Task Management Standards
 
-## Task Organization
-### Task States
-- `[ ]` pending, `[x]` completed, `[~]` in progress, `[!]` blocked
+## Required TODO Structure
+The following content MAY appear in todo.md. Do not include internal rules here.
 
-### Task Description Format
+### Task Item Format
+- Title: `[state] <action verb> <object> <detail>`
+- Metadata (indented):
+  - `Depends on: <task ids>`
+  - `Acceptance: <criteria>`
+  - `Notes: <note>`
+- Subtasks (indented checkboxes): `- [ ] <subtask>`
+
+### Phase Completion Checklist
+Every task phase MUST end with these subtasks:
+- `- [ ] Run code quality checks (linting, formatting)`
+- `- [ ] Fix all linting errors above threshold`
+- `- [ ] Ensure consistent code formatting`
+- `- [ ] Write unit tests for new public methods/functions`
+- `- [ ] Test normal, error, and edge cases`
+- `- [ ] Verify all tests pass`
+- `- [ ] Update documentation if needed`
+
+### Scope Rules
+- Each task completable in single session
+- Include implementation details only
+- List explicit dependencies
+- Reference existing interfaces from design documents
+
+### Example
+```
+[ ] Implement StaticAnalyzer selection
+  Depends on: Modeling design ready
+  Acceptance: Semgrep analyzer returns candidates for 2 variables
+  - [ ] Add SemgrepAnalyzer class wiring
+  - [ ] Validate supported languages via LanguageSupport
+  - [ ] Run code quality checks (linting, formatting)
+  - [ ] Fix all linting errors above threshold
+  - [ ] Ensure consistent code formatting
+  - [ ] Write unit tests for new public methods/functions
+  - [ ] Test normal, error, and edge cases
+  - [ ] Verify all tests pass
+  - [ ] Update documentation if needed
+```
+
+---
+
+## AI Authoring Guidelines (Internal Use Only)
+
+### Task Writing Rules
 - Use action verb + object + detail
-- Specify return type for methods
 - Specify expected behavior for operations
-- Include acceptance criteria
+- Include acceptance criteria when verifiable
+- Do not introduce new design content in TODO files
+- Reference only interfaces defined in design documents
 
-### Task Scope
-- Each task must be completable in single development session
-- Include all required implementation details
-- Specify all dependencies and prerequisites
-- Break down complex tasks into smaller, manageable units
+### Task Scope & Breakdown
+- Ensure task completable in one development session
+- Break complex work into smaller tasks
+- Specify dependencies and prerequisites explicitly
 
-### Design Compliance
-- TODO documents must only contain implementation tasks for existing design
-- No new design content allowed in TODO files
-- All tasks must reference only interfaces explicitly defined in design documents
-- No speculation or creation of new interfaces in TODO content
+### Phase Completion Enforcement
+- Every task phase MUST include the Phase Completion Checklist as subtasks
+- These subtasks are mandatory and cannot be omitted
+- They ensure consistent quality and testing across all phases
 
-## Code Quality Requirements
-### Pre-Implementation Checks
-1. Review existing code structure and patterns
-2. Identify potential refactoring opportunities
-3. Plan for maintainable and testable code
-
-### Post-Implementation Checks
-1. Run code quality tools on modified files
-2. Apply code formatting tools
-3. Fix all errors and warnings above threshold
-4. Ensure consistent coding style
-
-### Quality Gates
-- Code quality score ≥ 9.0 for all modified files
-- Consistent formatting applied to all modified files
-- No linting errors remain
-- All tests pass
-
-## Testing Requirements
-### Unit Test Coverage
-- Create at least one unit test for each public method
-- Create at least one unit test for each public function
-- Test normal operation scenarios
-- Test error conditions
-- Test edge cases
-
-### Test Structure
-- Use Arrange-Act-Assert pattern
-- Use descriptive test names: function_condition_expected
-- Test one behavior per test method
-- Use fixtures for common test data
-- Mock external dependencies
-
-## File Organization
-### TODO File Structure
-- One file per development phase
-- Sequential numbering: 1.todo.md, 2.todo.md, etc.
-- Each file contains related tasks only
-- Split large phases across multiple files when needed
-
-### Task Dependencies
-- List prerequisite tasks explicitly
-- Specify execution order when required
-- Mark blocking dependencies clearly
-- Use dependency graphs for complex relationships
-
-## Status Management
-### Progress Tracking
-- Update task status immediately after completion
+### Status Management
+- Update task state immediately after change
 - Mark dependent tasks when prerequisites complete
-- Use clear status indicators only
-- Document completion criteria
+- Record completion criteria succinctly
 
-### Completion Criteria
-- All tasks marked as completed
-- All code passes quality gates
-- All tests pass
-- No blocking dependencies remain
-- Documentation updated if needed
+### File Organization
+- Keep one todo.md per phase when needed
+- Use sequential numbering when multiple files are required (1.todo.md, 2.todo.md)
+- Group related tasks together
 
-## Task Templates
-### Feature Implementation Task
+### Templates
+- Feature:
 ```
-[ ] Implement [FeatureName]
-  - [ ] Create [ComponentName] class
-  - [ ] Add [MethodName] method
-  - [ ] Write unit tests
-  - [ ] Update documentation
-  - [ ] Integration testing
+[ ] Implement <FeatureName>
+  Acceptance: <criteria>
+  - [ ] <subtask>
+  - [ ] Run code quality checks (linting, formatting)
+  - [ ] Fix all linting errors above threshold
+  - [ ] Ensure consistent code formatting
+  - [ ] Write unit tests for new public methods/functions
+  - [ ] Test normal, error, and edge cases
+  - [ ] Verify all tests pass
+  - [ ] Update documentation if needed
 ```
-
-### Bug Fix Task
+- Bug Fix:
 ```
-[ ] Fix [BugDescription]
-  - [ ] Reproduce the issue
-  - [ ] Identify root cause
+[ ] Fix <BugDescription>
+  Acceptance: <repro no longer fails>
+  - [ ] Reproduce
+  - [ ] Root cause
   - [ ] Implement fix
-  - [ ] Add regression test
-  - [ ] Verify fix works
+  - [ ] Regression test
+  - [ ] Run code quality checks (linting, formatting)
+  - [ ] Fix all linting errors above threshold
+  - [ ] Ensure consistent code formatting
+  - [ ] Write unit tests for new public methods/functions
+  - [ ] Test normal, error, and edge cases
+  - [ ] Verify all tests pass
+  - [ ] Update documentation if needed
 ```
-
-### Refactoring Task
+- Refactor:
 ```
-[ ] Refactor [ComponentName]
-  - [ ] Analyze current implementation
-  - [ ] Design improved structure
-  - [ ] Implement changes incrementally
+[ ] Refactor <Component>
+  Acceptance: <no behavior change, tests pass>
+  - [ ] Analyze
+  - [ ] Implement
   - [ ] Update tests
-  - [ ] Verify functionality preserved
+  - [ ] Run code quality checks (linting, formatting)
+  - [ ] Fix all linting errors above threshold
+  - [ ] Ensure consistent code formatting
+  - [ ] Write unit tests for new public methods/functions
+  - [ ] Test normal, error, and edge cases
+  - [ ] Verify all tests pass
+  - [ ] Update documentation if needed
 ```

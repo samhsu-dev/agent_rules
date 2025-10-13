@@ -1,59 +1,76 @@
 ---
-
-globs: **/idea.md
-
+globs: **/*idea.md
 alwaysApply: false
+---
+# IDEA Standards (Concepts & Terminology)
+
+## Required Document Structure
+The following sections MUST appear in every idea document:
+
+### 1. Context
+- Problem
+- Role in system (one sentence)
+- Inputs (concept names)
+- Outputs (concept names)
+- Upstream modules (names)
+- Downstream modules (names)
+- Exclude implementation, interfaces, commands, code
+
+### 2. Goals
+- Goals (outcomes at concept level)
+- Non-goals (out of scope)
+- Responsibilities owned
+- Responsibilities not owned
+- Success criteria (concept level)
+
+### 3. Concepts
+- Concept diagram of module position and interactions
+- For each concept:
+  - Name
+  - Definition
+  - Why it matters
+  - Scope
+  - Non-goals
+
+### 4. Contracts & Flow
+- Contracts for exchanged data (names, meanings)
+- Internal steps from input to output
+- Data transformations (concept level)
+- Methods/techniques (names only)
+- Decision criteria for method choice
+- Dependencies on neighboring modules
+- Assumptions about neighboring modules
+- Shared terminology
+
+### 5. Scenarios & Constraints
+- Scenarios: Typical, Boundary, Interaction
+- Preconditions
+- Postconditions
+- Invariants
+- Resource, ordering, timing constraints
 
 ---
 
-# IDEA Standards (Concepts & Terminology)
+## AI Generation Guidelines (Internal Use Only)
 
-## 1. Purpose
-- State the problem this module addresses and why it exists.
-- Exclude implementation, interfaces, commands, and code.
+### Content Focus
+- Concepts and terminology only
+- Exclude implementation details, APIs, commands, code samples
+- Link to design.md for technical specifications
 
-## 2. Role in System (static position)
-- One sentence: where this module fits in the whole system.
-- Inputs and outputs at the concept level (names only).
-- Upstream/downstream modules (names only).
+### Writing Style
+- Clear and concise language
+- No redundant information
+- Audience: Researchers and Developers
+- Consistent terminology across modules
 
-## 3. Core Concepts
-- For each concept, add one entry using this schema:
-  - Name: <ConceptName>
-  - Definition: one-sentence meaning in this context
-  - Why it matters: the decision/behavior it enables
-  - Scope: what is included
-  - Non-goals: what is explicitly excluded
+### Diagram Requirements
+- Concept diagrams of module relationships
+- Simple visual structure
+- Show data flow and interactions
 
-## 4. Boundaries & Responsibilities (ownership)
-- Responsibilities this module owns (what it must do).
-- Responsibilities explicitly not owned (what it must not do).
-- Constraints this module enforces.
-
-## 5. Conceptual Workflow (internal flow)
-- High-level steps from input to output within this module.
-- Data transformations at the concept level inside this module.
-- Methods/techniques used at the concept level (names only).
-- Decision criteria for choosing among methods under different conditions.
-
-## 6. Interactions with Other Modules (contracts)
-- Conceptual contracts for exchanged data (names and meanings only).
-- Dependencies and assumptions on neighboring modules/components.
-- Shared terminology to avoid duplication or drift.
-
-## 7. Scenarios (behavioral examples)
-- Typical: observable outcome under normal inputs.
-- Boundary: behavior at limits (missing input, conflicting signals).
-- Interaction: cross-module behavior using the contracts above.
-
-## 8. Assumptions & Constraints
-- Preconditions required for inputs and environment.
-- Postconditions guaranteed on outputs.
-- Invariants that must always hold for correctness (concept level).
-- Resource, ordering, and timing constraints (concept level only).
-
-## 9. Agent Outputs (when generating human docs)
-- Produce a minimal glossary from Core Concepts entries (Name, Definition, Why it matters).
-- Include a conceptual diagram of Role in System and Interactions.
-- Provide 2–3 scenario write-ups (Typical, Boundary, Interaction) as prose.
-- Link to `design.md` for design details once defined.
+### Scenario Development
+- Observable examples
+- Include normal, boundary, interaction cases
+- Consistent terminology
+- Demonstrate key concepts
