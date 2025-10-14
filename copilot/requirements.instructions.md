@@ -8,12 +8,16 @@ The following sections MUST appear in every design document:
 
 ### Design Overview
 Include a class diagram showing all classes and their relationships at the beginning of the document.
-**Format**: Use Mermaid syntax to show:
-- All classes as empty boxes (no methods, properties, or internal details)
-- Inheritance relationships (extends/implements)
-- Composition relationships (has-a/contains)
-- Dependencies (uses/requires)
-- Key interfaces and abstract classes
+**Format**: Use concise paragraph format with inline code blocks to show:
+- All classes in the module
+- Key relationships (inheritance, composition, dependencies)
+- Abstract classes and exceptions
+
+**Example Format**:
+**Classes**: `ClassA`, `ClassB`, `ClassC`, `ClassD`
+**Relationships**: `ClassA` extends `ClassB`, `ClassA` contains `ClassC`, `ClassA` uses `ClassD`
+**Abstract**: `ClassE` (implemented by `ClassF`, `ClassG`)
+**Exceptions**: `ExceptionH` extends `ExceptionI`, raised by `ClassA`
 
 ### Class Specifications
 **[ClassName] Class** 
