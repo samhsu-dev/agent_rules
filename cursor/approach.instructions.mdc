@@ -5,53 +5,63 @@ alwaysApply: false
 # IDEA Standards (Concepts & Terminology)
 
 ## Required Document Structure
-The following sections MUST appear in every idea document:
+The following sections MUST appear in every idea document. Use structured formatting (headings, bullet points, bold text) while maintaining logical flow and narrative coherence.
 
 ### 1. Context
-- Problem
-- Role in system (one sentence)
-- Inputs (concept names)
-- Outputs (concept names)
-- Upstream modules (names)
-- Downstream modules (names)
-- Exclude implementation, interfaces, commands, code
+**Problem Statement**
+Present the core problem and its rationale in 2-3 flowing sentences.
 
-### 2. Goals
-- Goals (outcomes at concept level)
-- Non-goals (out of scope)
-- Responsibilities owned
-- Responsibilities not owned
-- Success criteria (concept level)
+**System Role**
+One sentence describing the module's position in system architecture.
 
-### 3. Concepts
-- Concept diagram of module position and interactions
-- For each concept:
-  - Name
-  - Definition
-  - Why it matters
-  - Scope
-  - Non-goals
+**Data Flow**
+- **Inputs:** [concept names from upstream modules]
+- **Outputs:** [concept names to downstream modules]
+- **Connections:** [upstream] → [this module] → [downstream]
 
-### 4. Contracts & Flow
-- Contracts for exchanged data (names, meanings)
-- Internal steps from input to output
-- Data transformations (concept level)
-- Methods/techniques (names only)
-- Decision criteria for method choice
-- Dependencies on neighboring modules
-- Assumptions about neighboring modules
-- Shared terminology
+**Scope Boundaries**
+- **Owned:** [responsibilities this module manages]
+- **Not Owned:** [explicitly out of scope]
 
-### 5. Scenarios & Constraints
-- Scenarios: Typical, Boundary, Interaction
-- Preconditions
-- Postconditions
-- Invariants
-- Resource, ordering, timing constraints
+
+### 2. Concepts
+**Conceptual Diagram**
+```
+[Visual representation of module interactions]
+```
+
+**Core Concepts**
+For each concept, present as flowing paragraph:
+- **Name:** [concept identifier]
+- **Definition:** [what it is and why it matters]
+- **Scope:** [what it includes/excludes]
+- **Relationships:** [how it connects to other concepts]
+
+### 3. Contracts & Flow
+**Data Contracts**
+- **With [Module A]:** [data exchanged, shared terminology]
+
+**Internal Processing Flow**
+Present as numbered steps with brief explanations:
+1. [Step name] - [what happens] 
+2. ...
+
+### 4. Scenarios
+- **Typical:** [normal operation example]
+- **Boundary:** [edge case handling]
+- **Interaction:** [collaboration with other modules]
 
 ---
 
 ## AI Generation Guidelines (Internal Use Only)
+
+### Formatting & Coherence Balance
+- **Structured Layout:** Use headings, bullet points, bold text, and diagrams for clarity
+- **Narrative Flow:** Maintain logical connections between sections and within paragraphs
+- **Paragraph Length:** Keep paragraphs short (2-4 sentences) for readability
+- **Language Style:** Concise, direct statements without unnecessary modifiers
+- **Information Density:** Eliminate redundancy while preserving completeness
+- **Visual Hierarchy:** Use formatting to guide reading flow without disrupting narrative
 
 ### Content Focus
 - Concepts and terminology only
@@ -63,6 +73,10 @@ The following sections MUST appear in every idea document:
 - No redundant information
 - Audience: Researchers and Developers
 - Consistent terminology across modules
+- Prioritize readability and logical flow
+- Short paragraphs (2-4 sentences)
+- Direct statements without modifiers
+- Eliminate unnecessary words
 
 ### Diagram Requirements
 - Concept diagrams of module relationships

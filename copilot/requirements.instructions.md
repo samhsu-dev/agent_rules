@@ -9,7 +9,7 @@ The following sections MUST appear in every design document:
 ### Design Overview
 Include a class diagram showing all classes and their relationships at the beginning of the document.
 **Format**: Use Mermaid syntax to show:
-- All classes in the module
+- All classes without methods and properties in the module
 - Inheritance relationships (extends/implements)
 - Composition relationships (has-a/contains)
 - Dependencies (uses/requires)
