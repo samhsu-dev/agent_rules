@@ -20,10 +20,17 @@ Every task phase MUST end with these subtasks:
 - `- [ ] Run code quality checks (linting, formatting)`
 - `- [ ] Fix all linting errors above threshold`
 - `- [ ] Ensure consistent code formatting`
+- `- [ ] Add logging only where necessary (no redundant/trivial logs)`
 - `- [ ] Write unit tests for new public methods/functions`
 - `- [ ] Test normal, error, and edge cases`
 - `- [ ] Verify all tests pass`
 - `- [ ] Update documentation if needed`
+
+### Phase Structure
+- Use explicit phases in todo files when work spans multiple steps. Title phases as `[state] Phase N <action verb> <object> <detail>`.
+- Each phase must include its own Depends on and Acceptance lines.
+- Each phase must include the full Phase Completion Checklist subtasks.
+- Keep phases sequential; later phases must depend on earlier ones.
 
 ### Scope Rules
 - Each task completable in single session
@@ -41,6 +48,7 @@ Every task phase MUST end with these subtasks:
   - [ ] Run code quality checks (linting, formatting)
   - [ ] Fix all linting errors above threshold
   - [ ] Ensure consistent code formatting
+  - [ ] Add logging only where necessary (no redundant/trivial logs)
   - [ ] Write unit tests for new public methods/functions
   - [ ] Test normal, error, and edge cases
   - [ ] Verify all tests pass
@@ -87,6 +95,7 @@ Every task phase MUST end with these subtasks:
   - [ ] Run code quality checks (linting, formatting)
   - [ ] Fix all linting errors above threshold
   - [ ] Ensure consistent code formatting
+  - [ ] Add logging only where necessary (no redundant/trivial logs)
   - [ ] Write unit tests for new public methods/functions
   - [ ] Test normal, error, and edge cases
   - [ ] Verify all tests pass
@@ -103,6 +112,7 @@ Every task phase MUST end with these subtasks:
   - [ ] Run code quality checks (linting, formatting)
   - [ ] Fix all linting errors above threshold
   - [ ] Ensure consistent code formatting
+  - [ ] Add logging only where necessary (no redundant/trivial logs)
   - [ ] Write unit tests for new public methods/functions
   - [ ] Test normal, error, and edge cases
   - [ ] Verify all tests pass
@@ -118,6 +128,7 @@ Every task phase MUST end with these subtasks:
   - [ ] Run code quality checks (linting, formatting)
   - [ ] Fix all linting errors above threshold
   - [ ] Ensure consistent code formatting
+  - [ ] Add logging only where necessary (no redundant/trivial logs)
   - [ ] Write unit tests for new public methods/functions
   - [ ] Test normal, error, and edge cases
   - [ ] Verify all tests pass

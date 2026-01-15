@@ -1,7 +1,7 @@
 ---
-globs: **/*idea.md
-alwaysApply: false
+description: IDEA documentation standards for concept and terminology documentation in *idea.md files
 ---
+
 # IDEA Standards (Concepts & Terminology)
 
 ## Required Document Structure
@@ -23,7 +23,6 @@ One sentence describing the module's position in system architecture.
 - **Owned:** [responsibilities this module manages]
 - **Not Owned:** [explicitly out of scope]
 
-
 ### 2. Concepts
 **Conceptual Diagram**
 ```
@@ -43,7 +42,7 @@ For each concept, present as flowing paragraph:
 
 **Internal Processing Flow**
 Present as numbered steps with brief explanations:
-1. [Step name] - [what happens] 
+1. [Step name] - [what happens]
 2. ...
 
 ### 4. Scenarios
@@ -53,9 +52,7 @@ Present as numbered steps with brief explanations:
 
 ---
 
-## AI Generation Guidelines (Internal Use Only)
-
-### Formatting & Coherence Balance
+## Formatting & Coherence Balance
 - **Structured Layout:** Use headings, bullet points, bold text, and diagrams for clarity
 - **Narrative Flow:** Maintain logical connections between sections and within paragraphs
 - **Paragraph Length:** Keep paragraphs short (2-4 sentences) for readability
@@ -63,12 +60,12 @@ Present as numbered steps with brief explanations:
 - **Information Density:** Eliminate redundancy while preserving completeness
 - **Visual Hierarchy:** Use formatting to guide reading flow without disrupting narrative
 
-### Content Focus
+## Content Focus
 - Concepts and terminology only
 - Exclude implementation details, APIs, commands, code samples
 - Link to design.md for technical specifications
 
-### Writing Style
+## Writing Style
 - Clear and concise language
 - No redundant information
 - Audience: Researchers and Developers
@@ -78,12 +75,12 @@ Present as numbered steps with brief explanations:
 - Direct statements without modifiers
 - Eliminate unnecessary words
 
-### Diagram Requirements
+## Diagram Requirements
 - Concept diagrams of module relationships
 - Simple visual structure
 - Show data flow and interactions
 
-### Scenario Development
+## Scenario Development
 - Observable examples
 - Include normal, boundary, interaction cases
 - Consistent terminology
