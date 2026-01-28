@@ -16,6 +16,10 @@ applyTo: **/*
 - Handle errors at the appropriate abstraction level.
 - Preserve original exception context across call chains.
 - Provide meaningful error messages.
+- **Avoid silent fallback mechanisms**: raise exceptions instead of silently falling back to alternative implementations.
+- **Fail fast**: raise exceptions immediately on initialization/operation failure; do not silently degrade functionality.
+- **Exception-driven**: use exceptions to communicate errors; do not hide errors through fallback.
+- **Never silent fallback**: do not silently return empty values (empty strings, empty lists, `null`/`None`) on failure. Log at appropriate level and raise or surface a clear error.
 
 ## Code Structure
 - Keep functions short (ideally < 20 lines).
@@ -32,8 +36,23 @@ applyTo: **/*
 ## Documentation
 - Use English for comments and docs.
 - Explain why (rationale) rather than what.
+- **No historical notes**: do not include comments about code evolution or previous implementations.
+- **No iteration history**: remove comments about previous decisions that are no longer relevant.
+- **Focus on action/behavior**: comments describe current behavior and constraints, not change history.
+
+### Docstring Standards (Public API)
+- Document only public API (no leading underscore). Private members: one-line usage comment only.
+- For functions/classes described in design docs, docstrings must include all information from the corresponding design section.
+- Content: one-sentence summary; constraints/assumptions/side effects; parameters; return value; exceptions raised.
+- No redundancy, no implementation details, no examples (examples go to docs/tests).
+- Format: Google style.
+  - Functions: summary, `Args:`, `Returns:`, `Raises:`.
+  - Classes: summary, `Attributes:` (public only) + sections for constraints/assumptions/side effects.
+
+## Type Safety
 - Add type hints/annotations to all function parameters and return values.
 - Prefer specific types over generic ones.
+- **No Any**: do not use `Any`. Use concrete types. If unsure, query Context7/docs.
 
 ## Testing
 - Prefer one assertion per test when practical.

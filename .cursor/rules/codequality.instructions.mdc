@@ -35,12 +35,11 @@ alwaysApply: false
 ## Documentation
 - Use English for comments and docs
 - Explain why (rationale) rather than what
-- Add type hints to all function parameters and return values
-- Prefer specific types over generic ones
 - **No historical notes**: Do not include comments about code evolution or previous implementations
 - **No iteration history**: Remove comments about previous design decisions that are no longer relevant
+- **Focus on action/behavior**: Comments describe current behavior and constraints, not change history
 
-### Func or Class Document Standards
+### Docstring Standards (Public API)
 - Detail document only public API (no leading underscore). Private methods use a brief single-line comment to summarize the usage
 - For functions/classes in design documents, docstrings must include all information from the corresponding design document section
 - Write for developers using the code: one sentence summary, important constraints/assumptions/side effects, parameter descriptions, return value description, exceptions raised
@@ -48,6 +47,11 @@ alwaysApply: false
 - Use structured Google-style format:
   - **Functions**: one sentence summary, followed by `Args:` section listing each parameter with description, `Returns:` section describing return value, and `Raises:` section listing exceptions when applicable
   - **Classes**: one sentence summary, followed by `Attributes:` section listing public attributes when applicable, and additional sections for important constraints/assumptions/side effects
+
+## Type Safety
+- Add type hints/annotations to all function parameters and return values
+- Prefer specific types over generic ones
+- **No Any**: Do not use `Any`. Use concrete types. If unsure, query Context7/docs.
 
 ## Testing
 - Prefer one assertion per test when practical
@@ -81,6 +85,7 @@ alwaysApply: false
 - Run quality tools again
 - Target score: 9.0+ for all modules
 - Fix all warnings before proceeding
+- **Never bypass or hide errors**: Do not use linter disable comments (e.g., `# pylint: disable=...`, `# type: ignore`, `# noqa`) to suppress warnings. Fix the underlying issues instead. Suppressing errors only improves scores artificially without solving the actual problems
 - Apply formatting and import organization tools
 - Verify structure follows standards
 
@@ -98,16 +103,16 @@ alwaysApply: false
 - Get docs before integration
 - Focus on specific topics relevant to implementation
 
-### DeepWiki
-- Explore repository structure
-- Ask specific questions about implementation patterns
-- Get structure before diving into code
-
 ### Documentation Policy
 - **NEVER** create summary/README after task completion
 - **NEVER** create TEST_UPDATE_GUIDE.md or similar files
 - Update existing TODO files in place
 - Keep docs concise, avoid redundancy
+
+## !!Refactory Rule!!
+- Do not retain any old design elements. 
+- Always use the new design and refactor the old design. 
+- Do not keep change records in the code.
 
 ## Language-Specific Guidelines
 - Follow language-specific best practices

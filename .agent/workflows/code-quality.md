@@ -4,11 +4,25 @@ description: Code quality standards and best practices for programming tasks
 
 # Code Quality Standards
 
-## Control Flow Optimization
+## Code Structure & Style
+
+### Control Flow
 - Prefer early returns over nested conditionals
 - Use guard clauses to minimize nesting
 - Use `continue`/`break` instead of nested `if` blocks
 - Keep logic flat, max 3 nesting levels
+
+### Function Design
+- Keep functions short (ideally < 20 lines)
+- Extract complex logic into dedicated functions
+- Use meaningful variable and function names
+- Avoid deep nesting (max 3 levels)
+
+### Performance
+- Use context managers for resource management/cleanup
+- Avoid unnecessary object creation in loops
+- Check caches before expensive operations
+- Optimize critical paths
 
 ## Error Handling
 - Catch specific exception types (avoid broad `except Exception`)
@@ -16,38 +30,33 @@ description: Code quality standards and best practices for programming tasks
 - Preserve exception context with `from e`
 - Provide meaningful error messages
 - **Avoid silent fallback mechanisms**: Raise exceptions instead of silently falling back to alternative implementations
-- **Fail fast**: Raise exceptions immediately on initialization/operation failure, do not silently degrade functionality
-- **Exception-driven**: Use exceptions to communicate errors clearly, avoid hiding errors through fallback
-- **Never silent fallback**: Never silently return empty values (empty strings, empty lists, None) when operations fail. Always log errors at appropriate level (ERROR for critical failures, WARNING for recoverable issues) and either raise exceptions or provide clear error messages in logs
-
-## Code Structure
-- Keep functions short (ideally < 20 lines)
-- Extract complex logic into dedicated functions
-- Avoid deep nesting (max 3 levels)
-- Use meaningful variable and function names
-
-## Performance
-- Use context managers for resource management/cleanup
-- Avoid unnecessary object creation in loops
-- Check caches before expensive operations
-- Optimize critical paths
+- **Fail fast**: Raise exceptions immediately on initialization/operation failure
+- **Exception-driven**: Use exceptions to communicate errors clearly
+- **Never silent fallback**: Never silently return empty values when operations fail. Always log errors at appropriate level (ERROR for critical failures, WARNING for recoverable issues) and either raise exceptions or provide clear error messages in logs
 
 ## Documentation
+
+### General Standards
 - Use English for comments and docs
 - Explain why (rationale) rather than what
-- Add type hints to all function parameters and return values
-- Prefer specific types over generic ones
 - **No historical notes**: Do not include comments about code evolution or previous implementations
 - **No iteration history**: Remove comments about previous design decisions that are no longer relevant
+- **Focus on action/behavior**: Comments describe current behavior and constraints, not change history
 
-### Func or Class Document Standards
-- Detail document only public API (no leading underscore). Private methods use a brief single-line comment to summarize the usage
+### Docstring Standards (Public API)
+- Detail document only public API (no leading underscore)
+- Private methods use a brief single-line comment to summarize usage
 - For functions/classes in design documents, docstrings must include all information from the corresponding design document section
 - Write for developers using the code: one sentence summary, important constraints/assumptions/side effects, parameter descriptions, return value description, exceptions raised
 - Be concise: no redundancy, no implementation details, no examples (examples belong in separate docs/tests)
 - Use structured Google-style format:
   - **Functions**: one sentence summary, followed by `Args:` section listing each parameter with description, `Returns:` section describing return value, and `Raises:` section listing exceptions when applicable
   - **Classes**: one sentence summary, followed by `Attributes:` section listing public attributes when applicable, and additional sections for important constraints/assumptions/side effects
+
+## Type Safety
+- Add type hints/annotations to all function parameters and return values
+- Prefer specific types over generic ones
+- **No Any**: Do not use `Any`. Use concrete types. If unsure, query Context7/docs.
 
 ## Testing
 - Prefer one assertion per test when practical
@@ -63,34 +72,6 @@ description: Code quality standards and best practices for programming tasks
 - Build self-contained modules
 - Keep data containers passive, avoid embedding behavior in simple data models
 - Represent application logic as explicit callables/functions
-
-## Code Quality Workflow
-### Pre-Modification
-- Run quality tools on target files
-- Check score and identify issues
-- Review warnings before making changes
-
-### During Development
-- Follow control flow optimization guidelines
-- Follow naming conventions and code structure rules
-- Add type hints and documentation
-- Use context managers for resource management
-- Use appropriate design patterns
-
-### Post-Modification
-- Run quality tools again
-- Target score: 9.0+ for all modules
-- Fix all warnings before proceeding
-- Apply formatting and import organization tools
-- Verify structure follows standards
-
-### Phase Completion Gate
-- Run comprehensive quality checks
-- Verify all files formatted consistently
-- Run all unit tests
-- Verify test coverage and quality
-- Verify no critical issues remain
-- All gates must pass before proceeding
 
 ## Logging Standards
 - Use Python standard `logging` module
@@ -109,13 +90,72 @@ description: Code quality standards and best practices for programming tasks
 - Include context in message string using % formatting
 - Use `logger.exception()` for exceptions (auto-includes traceback)
 - Avoid logging sensitive information (API keys, passwords, personal data)
-- Example:
-  ```python
-  import logging
-  logger = logging.getLogger(__name__)
-  logger.debug("Processing item: %s", item_id)
-  logger.info("Completed: %d items in %.2f seconds", count, duration)
-  logger.warning("Low confidence: %.2f for %s", confidence, var_name)
-  logger.error("Failed: %s", error_message)
-  logger.exception("Unexpected error occurred")
-  ```
+
+Example:
+```python
+import logging
+logger = logging.getLogger(__name__)
+logger.debug("Processing item: %s", item_id)
+logger.info("Completed: %d items in %.2f seconds", count, duration)
+logger.warning("Low confidence: %.2f for %s", confidence, var_name)
+logger.error("Failed: %s", error_message)
+logger.exception("Unexpected error occurred")
+```
+
+## Code Quality Workflow
+
+### Pre-Modification
+- Run quality tools on target files
+- Check score and identify issues
+- Review warnings before making changes
+
+### During Development
+- Follow control flow optimization guidelines
+- Follow naming conventions and code structure rules
+- Add type hints and documentation
+- Use context managers for resource management
+- Use appropriate design patterns
+
+### Post-Modification
+- Run quality tools again
+- Target score: 9.0+ for all modules
+- Fix all warnings before proceeding
+- **Never bypass or hide errors**: Do not use linter disable comments (e.g., `# pylint: disable=...`, `# type: ignore`, `# noqa`) to suppress warnings. Fix the underlying issues instead. Suppressing errors only improves scores artificially without solving the actual problems
+- Apply formatting and import organization tools
+- Verify structure follows standards
+
+### Phase Completion Gate
+- Run comprehensive quality checks
+- Verify all files formatted consistently
+- Run all unit tests
+- Verify test coverage and quality
+- Verify no critical issues remain
+- All gates must pass before proceeding
+
+## External Tool Integration
+
+### Context7
+- Resolve library IDs and get documentation
+- Get docs before integration
+- Focus on specific topics relevant to implementation
+
+### Documentation Policy
+- **NEVER** create summary/README after task completion
+- **NEVER** create TEST_UPDATE_GUIDE.md or similar files
+- Update existing TODO files in place
+- Keep docs concise, avoid redundancy
+
+## Refactoring Rules
+- Do not retain any old design elements
+- Always use the new design and refactor the old design
+- Do not keep change records in the code
+
+## Language-Specific Guidelines
+- Follow language-specific best practices
+- Use appropriate design patterns
+- Maintain consistency with existing codebase style
+- Use language-specific quality assurance tools
+- Follow module/package organization conventions
+- Use appropriate import/export patterns
+- Maintain clear separation of concerns
+- Avoid circular dependencies
