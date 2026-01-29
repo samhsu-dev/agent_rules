@@ -1,7 +1,7 @@
 ---
-description: Design documentation standards for *design.md files
+globs: **/*design.md
+alwaysApply: false
 ---
-
 # Design Documentation Standards
 
 ## 1. Required structure (every design doc)

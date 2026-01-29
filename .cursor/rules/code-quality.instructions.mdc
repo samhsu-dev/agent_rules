@@ -55,13 +55,13 @@ alwaysApply: false
 - **Strict type checking**: Always enable strict type checking if the language supports it (e.g., `mypy --strict`, TypeScript `strict: true`, etc.)
 
 ## Input Contract & Invariants
-- **Input Contract**: For each function, define the allowed input set (type + value range + required fields/invariants). Do not claim “any input is accepted”.
+- **Input Contract**: For each function, define the allowed input set (type + value range + required fields/invariants). Do not claim "any input is accepted".
 - **Preconditions (fail fast)**: Validate the contract at function entry using guard clauses. If violated, raise the module/domain exception immediately.
-- **Invariant-driven**: Encode “must hold” facts as executable checks, not comments or implicit assumptions.
+- **Invariant-driven**: Encode "must hold" facts as executable checks, not comments or implicit assumptions.
 - **Single downgrade point**: If upstream input is dynamic/loose, validate + normalize at the boundary layer. Core logic accepts only verified, strongly-typed/strongly-constrained data.
 - **Single access path**: Access optional fields/variant structures via a single accessor/validator. Do not scatter presence/default/convert/error logic at call sites.
 - **Helper domain declaration**: Helpers (e.g., `get_identifier_name(x)`) must state accepted input shapes. Out of scope inputs must raise, not return empty/`None`.
-- **Consistent error semantics**: Same contract violation class → same exception type at the same layer. Do not mix “return empty” and “raise”.
+- **Consistent error semantics**: Same contract violation class → same exception type at the same layer. Do not mix "return empty" and "raise".
 
 ## Testing
 - Prefer one assertion per test when practical
@@ -69,7 +69,7 @@ alwaysApply: false
 - Follow Arrange–Act–Assert pattern
 - Keep tests focused and isolated, use fixtures for common setup
 - Cover positive and negative paths, assert error conditions explicitly
-- **Contract-locked tests**: For each contract point, add “valid input” tests and “invalid input” tests that must raise the specified exception (not return empty results).
+- **Contract-locked tests**: For each contract point, add "valid input" tests and "invalid input" tests that must raise the specified exception (not return empty results).
 
 ## API Design
 - Use core module APIs directly

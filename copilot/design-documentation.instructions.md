@@ -1,7 +1,6 @@
 ---
-description: Design documentation standards for *design.md files
+applyTo: **/design.md
 ---
-
 # Design Documentation Standards
 
 ## 1. Required structure (every design doc)
