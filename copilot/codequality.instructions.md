@@ -24,8 +24,8 @@ applyTo: **/*
 ## Code Structure
 - Keep functions short (ideally < 20 lines).
 - Extract complex logic into dedicated functions.
-- Avoid deep nesting (max 3 levels).
 - Use meaningful variable and function names.
+- **Relative imports**: always use relative imports for internal modules within the same package/project. Do not use absolute imports for internal code.
 
 ## Performance
 - Use context managers for resource management/cleanup.
@@ -53,6 +53,16 @@ applyTo: **/*
 - Add type hints/annotations to all function parameters and return values.
 - Prefer specific types over generic ones.
 - **No Any**: do not use `Any`. Use concrete types. If unsure, query Context7/docs.
+- **Strict type checking**: always enable strict type checking if the language supports it (e.g., `mypy --strict`, TypeScript `strict: true`, etc.).
+
+## Input Contract & Invariants
+- **Input Contract**: for each function, define the allowed input set (type + value range + required fields/invariants). Do not claim “any input is accepted”.
+- **Preconditions (fail fast)**: validate the contract at function entry using guard clauses. If violated, raise the module/domain exception immediately.
+- **Invariant-driven**: encode “must hold” facts as executable checks, not comments or implicit assumptions.
+- **Single downgrade point**: if upstream input is dynamic/loose, validate + normalize at the boundary layer. Core logic accepts only verified, strongly-typed/strongly-constrained data.
+- **Single access path**: access optional fields/variant structures via a single accessor/validator. Do not scatter presence/default/convert/error logic at call sites.
+- **Helper domain declaration**: helpers must state accepted input shapes. Out of scope inputs must raise, not return empty/`null`/`None`.
+- **Consistent error semantics**: same contract violation class → same exception type at the same layer. Do not mix “return empty” and “raise”.
 
 ## Testing
 - Prefer one assertion per test when practical.
@@ -60,6 +70,7 @@ applyTo: **/*
 - Follow Arrange–Act–Assert pattern.
 - Keep tests focused and isolated; use fixtures for common setup.
 - Cover positive and negative paths; assert error conditions explicitly.
+- **Contract-locked tests**: for each contract point, add “valid input” tests and “invalid input” tests that must raise the specified exception (not return empty results).
 
 ## API Design
 - Use core module APIs directly.
@@ -115,16 +126,3 @@ applyTo: **/*
 - Update existing TODO files in place
 - Keep documentation concise and integrated in existing structure
 - Avoid redundant documentation that duplicates TODO content
-
-## Language-Specific Guidelines
-### General Principles
-- Follow language-specific best practices
-- Use appropriate design patterns for the language
-- Maintain consistency with existing codebase style
-- Use language-specific tools for quality assurance
-
-## Code Organization
-- Follow language-specific module/package organization
-- Use appropriate import/export patterns
-- Maintain clear separation of concerns
-- Avoid circular dependencies

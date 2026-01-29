@@ -16,7 +16,7 @@ description: Code quality standards and best practices for programming tasks
 - Keep functions short (ideally < 20 lines)
 - Extract complex logic into dedicated functions
 - Use meaningful variable and function names
-- Avoid deep nesting (max 3 levels)
+- **Relative imports**: Always use relative imports for internal modules within the same package/project. Do not use absolute imports for internal code.
 
 ### Performance
 - Use context managers for resource management/cleanup
@@ -44,11 +44,10 @@ description: Code quality standards and best practices for programming tasks
 - **Focus on action/behavior**: Comments describe current behavior and constraints, not change history
 
 ### Docstring Standards (Public API)
-- Detail document only public API (no leading underscore)
-- Private methods use a brief single-line comment to summarize usage
+- Document only public API (no leading underscore). Private methods: one-line usage comment only
 - For functions/classes in design documents, docstrings must include all information from the corresponding design document section
-- Write for developers using the code: one sentence summary, important constraints/assumptions/side effects, parameter descriptions, return value description, exceptions raised
-- Be concise: no redundancy, no implementation details, no examples (examples belong in separate docs/tests)
+- Include: one-sentence summary; constraints/assumptions/side effects; params; return; raises
+- No redundancy, no implementation details, no examples
 - Use structured Google-style format:
   - **Functions**: one sentence summary, followed by `Args:` section listing each parameter with description, `Returns:` section describing return value, and `Raises:` section listing exceptions when applicable
   - **Classes**: one sentence summary, followed by `Attributes:` section listing public attributes when applicable, and additional sections for important constraints/assumptions/side effects
@@ -57,6 +56,16 @@ description: Code quality standards and best practices for programming tasks
 - Add type hints/annotations to all function parameters and return values
 - Prefer specific types over generic ones
 - **No Any**: Do not use `Any`. Use concrete types. If unsure, query Context7/docs.
+- **Strict type checking**: Always enable strict type checking if the language supports it (e.g., `mypy --strict`, TypeScript `strict: true`, etc.)
+
+## Input Contract & Invariants
+- **Input Contract**: For each function, define the allowed input set (type + value range + required fields/invariants). Do not claim “any input is accepted”.
+- **Preconditions (fail fast)**: Validate the contract at function entry using guard clauses. If violated, raise the module/domain exception immediately.
+- **Invariant-driven**: Encode “must hold” facts as executable checks, not comments or implicit assumptions.
+- **Single downgrade point**: If upstream input is dynamic/loose, validate + normalize at the boundary layer. Core logic accepts only verified, strongly-typed/strongly-constrained data.
+- **Single access path**: Access optional fields/variant structures via a single accessor/validator. Do not scatter presence/default/convert/error logic at call sites.
+- **Helper domain declaration**: Helpers must state accepted input shapes. Out of scope inputs must raise, not return empty/`None`.
+- **Consistent error semantics**: Same contract violation class → same exception type at the same layer. Do not mix “return empty” and “raise”.
 
 ## Testing
 - Prefer one assertion per test when practical
@@ -64,6 +73,7 @@ description: Code quality standards and best practices for programming tasks
 - Follow Arrange–Act–Assert pattern
 - Keep tests focused and isolated, use fixtures for common setup
 - Cover positive and negative paths, assert error conditions explicitly
+- **Contract-locked tests**: For each contract point, add “valid input” tests and “invalid input” tests that must raise the specified exception (not return empty results).
 
 ## API Design
 - Use core module APIs directly
@@ -80,7 +90,6 @@ description: Code quality standards and best practices for programming tasks
 - **Add logs only when necessary**: each log must serve a clear debugging or monitoring purpose
 - **No redundant logs**: avoid duplicate messages across modules for the same event
 - **No trivial logs**: skip logging for simple operations (getters, setters, straightforward flows)
-- **Never silent failures**: when operations fail and return fallback values (empty strings, None, empty lists), always log the failure with appropriate level (ERROR for critical failures, WARNING for recoverable issues)
 - Log levels:
   - DEBUG: complex logic diagnostics, non-obvious implementation details
   - INFO: key business results, flow milestones only (use sparingly)
@@ -90,17 +99,6 @@ description: Code quality standards and best practices for programming tasks
 - Include context in message string using % formatting
 - Use `logger.exception()` for exceptions (auto-includes traceback)
 - Avoid logging sensitive information (API keys, passwords, personal data)
-
-Example:
-```python
-import logging
-logger = logging.getLogger(__name__)
-logger.debug("Processing item: %s", item_id)
-logger.info("Completed: %d items in %.2f seconds", count, duration)
-logger.warning("Low confidence: %.2f for %s", confidence, var_name)
-logger.error("Failed: %s", error_message)
-logger.exception("Unexpected error occurred")
-```
 
 ## Code Quality Workflow
 
@@ -150,12 +148,4 @@ logger.exception("Unexpected error occurred")
 - Always use the new design and refactor the old design
 - Do not keep change records in the code
 
-## Language-Specific Guidelines
-- Follow language-specific best practices
-- Use appropriate design patterns
-- Maintain consistency with existing codebase style
-- Use language-specific quality assurance tools
-- Follow module/package organization conventions
-- Use appropriate import/export patterns
-- Maintain clear separation of concerns
-- Avoid circular dependencies
+ 
